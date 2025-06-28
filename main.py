@@ -1,16 +1,14 @@
-from gmail_auth import get_gmail_service
-from email_reader import list_unread_messages, get_message_snippet
+from email_reader import list_unread_messages, get_email_body
 
 def main():
-    msgs = list_unread_messages(max_results=3)
+    msgs = list_unread_messages(max_results=1)
     if not msgs:
-        print("No unread messages found.")
+        print("No unread messages.")
         return
-    
-    print(f"Found {len(msgs)} unread messages. Showing snippets:\n")
-    for i, m in enumerate(msgs, 1):
-        snippet = get_message_snippet(m["id"])
-        print(f"{i}. {snippet}\n---\n")
+
+    body = get_email_body(msgs[0]["id"])
+    print("Full email body:\n")
+    print(body)
 
 if __name__ == "__main__":
     main()
